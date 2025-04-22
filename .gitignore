@@ -1,0 +1,29 @@
+# === General ===
+.DS_Store
+node_modules/
+dist/
+.env
+*.log
+*.tmp
+
+# === Java ===
+*.class
+*.jar
+*.war
+*.iml
+*.ipr
+*.iws
+target/
+build/
+
+# === IntelliJ ===
+.idea/
+out/
+
+# === Spring Boot ===
+/*.jar
+*.db
+
+# === Docker ===
+*.pid
+docker-compose.override.yml
