@@ -25,7 +25,7 @@ public class ProjectEntity {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id", nullable = false)
     private AccountEntity owner;
 
     @Column(length = 100, nullable = false)
