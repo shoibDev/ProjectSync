@@ -8,10 +8,14 @@ import com.projectsync.backend.mappers.Mapper;
 import com.projectsync.backend.repositories.ProjectRepository;
 import com.projectsync.backend.repositories.TicketRepository;
 import jakarta.annotation.PostConstruct;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.SourceGetter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -30,12 +34,30 @@ public class AccountMapperImpl implements Mapper<AccountEntity, AccountDto> {
 
     @PostConstruct
     public void init() {
+        Converter<ProjectEntity, UUID> projectToUuid = ctx -> ctx.getSource().getId();
+        Converter<TicketEntity, UUID> ticketToUuid = ctx -> ctx.getSource().getId();
+
+        modelMapper.createTypeMap(ProjectEntity.class, UUID.class)
+                .setConverter(projectToUuid);
+
+        modelMapper.createTypeMap(TicketEntity.class, UUID.class)
+                .setConverter(ticketToUuid);
+
         modelMapper.typeMap(AccountEntity.class, AccountDto.class)
                 .addMappings(mapper -> {
-                    mapper.map(src -> src.getProjects().stream().map(ProjectEntity::getId).toList(),
-                            AccountDto::setProjectIds);
-                    mapper.map(src -> src.getAssignedTickets().stream().map(TicketEntity::getId).toList(),
-                            AccountDto::setAssignedTicketIds);
+                    mapper.map(
+                            src -> Optional.ofNullable(src.getProjects())
+                                    .orElse(List.of())
+                                    .stream().map(ProjectEntity::getId).toList(),
+                            AccountDto::setProjectIds
+                    );
+
+                    mapper.map(
+                            src -> Optional.ofNullable(src.getAssignedTickets())
+                                    .orElse(List.of())
+                                    .stream().map(TicketEntity::getId).toList(),
+                            AccountDto::setAssignedTicketIds
+                    );
                 });
     }
 
