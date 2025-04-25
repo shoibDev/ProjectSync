@@ -3,10 +3,9 @@ package com.projectsync.backend.security.controller;
 import com.projectsync.backend.domain.entities.AccountEntity;
 import com.projectsync.backend.security.dto.AccountLoginDto;
 import com.projectsync.backend.security.dto.AccountRegisterDto;
+import com.projectsync.backend.security.dto.LoginResponse;
 import com.projectsync.backend.security.service.AuthenticationService;
 import com.projectsync.backend.security.service.JwtService;
-import lombok.Builder;
-import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,10 +25,15 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<AccountEntity> register(@RequestBody AccountRegisterDto accountRegisterDto) {
+    public ResponseEntity<AccountRegisterDto> register(@RequestBody AccountRegisterDto accountRegisterDto) {
         AccountEntity registeredUser = authenticationService.signup(accountRegisterDto);
 
-        return ResponseEntity.ok(registeredUser);
+        AccountRegisterDto response = AccountRegisterDto.builder()
+                .email(registeredUser.getEmail())
+                .password(registeredUser.getPassword())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
@@ -44,11 +48,4 @@ public class AuthenticationController {
                 .build();
         return ResponseEntity.ok(loginResponse);
     }
-}
-
-@Data
-@Builder
-class LoginResponse {
-    private String token;
-    private long expiresIn;
 }
