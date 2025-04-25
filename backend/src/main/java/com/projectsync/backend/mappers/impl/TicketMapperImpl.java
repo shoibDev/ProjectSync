@@ -8,6 +8,7 @@ import com.projectsync.backend.repositories.AccountRepository;
 import jakarta.annotation.PostConstruct;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +16,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Component
 public class TicketMapperImpl implements Mapper<TicketEntity, TicketDto> {
 
     private final ModelMapper modelMapper;
@@ -58,10 +60,8 @@ public class TicketMapperImpl implements Mapper<TicketEntity, TicketDto> {
                     .collect(Collectors.toSet());
             ticketEntity.setAssignedTo(assignedTo);
         }
-        if (ticketDto.getProjectId() != null) {
-            TicketEntity project = new TicketEntity();
-            project.setId(ticketDto.getProjectId());
-        }
+        // Note: The project entity is set in the TicketServiceImpl, not here
+        // This is because we need to fetch the actual ProjectEntity from the database
         return ticketEntity;
     }
 }

@@ -1,6 +1,5 @@
 package com.projectsync.backend.domain.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +22,10 @@ public class TicketDto {
 
     private TicketDto.TicketStatus status;
 
+    private TicketDto.TicketPriority priority;
+
+    private TicketDto.TicketType type;
+
     private Set<UUID> assignedToIds;
 
     private UUID projectId;
@@ -32,5 +35,18 @@ public class TicketDto {
         IN_PROGRESS,
         DONE,
         BLOCKED
+    }
+
+    public enum TicketPriority {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
+    public enum TicketType {
+        BUG,
+        FEATURE,
+        QUESTION,
+        TASK
     }
 }
