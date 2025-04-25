@@ -35,6 +35,14 @@ public class TicketEntity {
     @Column(nullable = false)
     private TicketStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true) // Later modify to nullable = false...
+    private TicketPriority priority;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true) // Later modify to nullable = false...
+    private TicketType type;
+
     @ManyToMany
     @JoinTable(
             name = "ticket_assigned_to",
@@ -52,5 +60,18 @@ public class TicketEntity {
         IN_PROGRESS,
         DONE,
         BLOCKED
+    }
+
+    public enum TicketPriority {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
+    public enum TicketType {
+        BUG,
+        FEATURE,
+        QUESTION,
+        TASK
     }
 }

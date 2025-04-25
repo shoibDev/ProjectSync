@@ -10,6 +10,7 @@ import com.projectsync.backend.repositories.TicketRepository;
 import jakarta.annotation.PostConstruct;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@Component
 public class ProjectMapperImpl implements Mapper<ProjectEntity, ProjectDto> {
 
     private final ModelMapper modelMapper;
