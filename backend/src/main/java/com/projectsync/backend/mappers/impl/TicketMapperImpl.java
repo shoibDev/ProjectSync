@@ -29,20 +29,23 @@ public class TicketMapperImpl implements Mapper<TicketEntity, TicketDto> {
 
     @PostConstruct
     public void init() {
-        Converter<AccountEntity, UUID> accountToUuid = ctx -> ctx.getSource().getId();
-        Converter<TicketEntity, UUID> ticketToUuid = ctx -> ctx.getSource().getId();
-
-        modelMapper.createTypeMap(AccountEntity.class, UUID.class)
-                .setConverter(accountToUuid);
-        modelMapper.createTypeMap(TicketEntity.class, UUID.class)
-                .setConverter(ticketToUuid);
-
-        modelMapper.typeMap(TicketEntity.class, TicketDto.class).addMappings(mapper -> {
-            mapper.map(src -> Optional.ofNullable(src.getAssignedTo())
-                    .orElse(Set.of())
-                    .stream().map(AccountEntity::getId), TicketDto::setAssignedToIds);
-            mapper.map(src -> src.getProject().getId(), TicketDto::setProjectId);
-        });
+        if (modelMapper.getTypeMap(TicketEntity.class, TicketDto.class) == null) {
+            modelMapper.typeMap(TicketEntity.class, TicketDto.class)
+                    .addMappings(mapper -> {
+                        mapper.map(
+                                src -> Optional.ofNullable(src.getAssignedTo())
+                                        .orElse(Set.of())
+                                        .stream()
+                                        .map(AccountEntity::getId)
+                                        .toList(),
+                                TicketDto::setAssignedToIds
+                        );
+                        mapper.map(
+                                src -> src.getProject().getId(),
+                                TicketDto::setProjectId
+                        );
+                    });
+        }
     }
 
     @Override

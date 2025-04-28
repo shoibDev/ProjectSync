@@ -1,6 +1,7 @@
 package com.projectsync.backend.mappers.impl;
 
 import com.projectsync.backend.TestDataUtil;
+import com.projectsync.backend.config.MapperConfig;
 import com.projectsync.backend.domain.dto.TicketDto;
 import com.projectsync.backend.domain.entities.AccountEntity;
 import com.projectsync.backend.domain.entities.ProjectEntity;
@@ -32,7 +33,8 @@ public class TicketMapperImplTest {
 
     @BeforeEach
     void setUp() {
-        ticketMapper = new TicketMapperImpl(new ModelMapper(), accountRepository);
+        ModelMapper modelMapper = new MapperConfig().modelMapper();
+        ticketMapper = new TicketMapperImpl(modelMapper, accountRepository);
         ticketMapper.init();
     }
 

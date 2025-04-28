@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/account")
 public class AccountController {
 
     private final AccountService accountService;
@@ -51,7 +51,7 @@ public class AccountController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AccountDto> updateAccount(@PathVariable UUID id, @RequestBody AccountDto accountDto) {
-        if (accountService.existsById(id)) {
+        if (!accountService.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
 
@@ -62,7 +62,7 @@ public class AccountController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAccount(@PathVariable UUID id) {
-        if (accountService.existsById(id)) {
+        if (!accountService.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
 
