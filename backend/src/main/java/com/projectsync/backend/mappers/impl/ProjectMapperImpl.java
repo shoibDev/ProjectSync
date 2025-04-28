@@ -34,30 +34,31 @@ public class ProjectMapperImpl implements Mapper<ProjectEntity, ProjectDto> {
 
     @PostConstruct
     public void init() {
-        Converter<AccountEntity, UUID> accountToUuid = ctx -> ctx.getSource().getId();
-        Converter<TicketEntity, UUID> ticketToUuid = ctx -> ctx.getSource().getId();
-
-        modelMapper.createTypeMap(AccountEntity.class, UUID.class)
-                .setConverter(accountToUuid);
-        modelMapper.createTypeMap(TicketEntity.class, UUID.class)
-                .setConverter(ticketToUuid);
-
-        modelMapper.typeMap(ProjectEntity.class, ProjectDto.class)
-                .addMappings(mapper -> {
-                    mapper.map(
-                            src -> Optional.ofNullable(src.getAssignedTo())
-                                    .orElse(Set.of())
-                                    .stream().map(AccountEntity::getId).toList(),
-                            ProjectDto::setAssignedToIds
-                    );
-                    mapper.map(
-                            src -> Optional.ofNullable(src.getTickets())
-                                    .orElse(List.of())
-                                    .stream().map(TicketEntity::getId).toList(),
-                            ProjectDto::setTicketIds
-                    );
-                    mapper.map(src -> src.getOwner().getId(), ProjectDto::setOwnerId);
-                });
+        if (modelMapper.getTypeMap(ProjectEntity.class, ProjectDto.class) == null) {
+            modelMapper.typeMap(ProjectEntity.class, ProjectDto.class)
+                    .addMappings(mapper -> {
+                        mapper.map(
+                                src -> Optional.ofNullable(src.getAssignedTo())
+                                        .orElse(Set.of())
+                                        .stream()
+                                        .map(AccountEntity::getId)
+                                        .toList(),
+                                ProjectDto::setAssignedToIds
+                        );
+                        mapper.map(
+                                src -> Optional.ofNullable(src.getTickets())
+                                        .orElse(List.of())
+                                        .stream()
+                                        .map(TicketEntity::getId)
+                                        .toList(),
+                                ProjectDto::setTicketIds
+                        );
+                        mapper.map(
+                                src -> src.getOwner().getId(),
+                                ProjectDto::setOwnerId
+                        );
+                    });
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.projectsync.backend.mappers.impl;
 
+import com.projectsync.backend.config.MapperConfig;
 import com.projectsync.backend.domain.dto.AccountDto;
 import com.projectsync.backend.domain.entities.AccountEntity;
 import com.projectsync.backend.domain.entities.ProjectEntity;
@@ -34,7 +35,8 @@ public class AccountMapperImplTest {
 
     @BeforeEach
     void setUp() {
-        accountMapper = new AccountMapperImpl(new ModelMapper(), projectRepository, ticketRepository);
+        ModelMapper modelMapper = new MapperConfig().modelMapper();
+        accountMapper = new AccountMapperImpl(modelMapper, projectRepository, ticketRepository);
         accountMapper.init(); // Call the @PostConstruct method manually
     }
 

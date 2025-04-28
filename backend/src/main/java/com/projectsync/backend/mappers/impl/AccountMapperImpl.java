@@ -34,31 +34,23 @@ public class AccountMapperImpl implements Mapper<AccountEntity, AccountDto> {
 
     @PostConstruct
     public void init() {
-        Converter<ProjectEntity, UUID> projectToUuid = ctx -> ctx.getSource().getId();
-        Converter<TicketEntity, UUID> ticketToUuid = ctx -> ctx.getSource().getId();
-
-        modelMapper.createTypeMap(ProjectEntity.class, UUID.class)
-                .setConverter(projectToUuid);
-
-        modelMapper.createTypeMap(TicketEntity.class, UUID.class)
-                .setConverter(ticketToUuid);
-
-        modelMapper.typeMap(AccountEntity.class, AccountDto.class)
-                .addMappings(mapper -> {
-                    mapper.map(
-                            src -> Optional.ofNullable(src.getProjects())
-                                    .orElse(List.of())
-                                    .stream().map(ProjectEntity::getId).toList(),
-                            AccountDto::setProjectIds
-                    );
-
-                    mapper.map(
-                            src -> Optional.ofNullable(src.getAssignedTickets())
-                                    .orElse(List.of())
-                                    .stream().map(TicketEntity::getId).toList(),
-                            AccountDto::setAssignedTicketIds
-                    );
-                });
+        if (modelMapper.getTypeMap(AccountEntity.class, AccountDto.class) == null) {
+            modelMapper.typeMap(AccountEntity.class, AccountDto.class)
+                    .addMappings(mapper -> {
+                        mapper.map(
+                                src -> Optional.ofNullable(src.getProjects())
+                                        .orElse(List.of())
+                                        .stream().map(ProjectEntity::getId).toList(),
+                                AccountDto::setProjectIds
+                        );
+                        mapper.map(
+                                src -> Optional.ofNullable(src.getAssignedTickets())
+                                        .orElse(List.of())
+                                        .stream().map(TicketEntity::getId).toList(),
+                                AccountDto::setAssignedTicketIds
+                        );
+                    });
+        }
     }
 
     @Override
