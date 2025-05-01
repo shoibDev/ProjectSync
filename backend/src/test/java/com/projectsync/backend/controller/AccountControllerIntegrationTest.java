@@ -1,80 +1,139 @@
 package com.projectsync.backend.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JavaType;
+import com.projectsync.backend.BaseIntegrationTest;
 import com.projectsync.backend.TestDataUtil;
+import com.projectsync.backend.controllers.AccountController;
 import com.projectsync.backend.domain.dto.AccountDto;
 import com.projectsync.backend.domain.entities.AccountEntity;
 import com.projectsync.backend.mappers.impl.AccountMapperImpl;
+import com.projectsync.backend.security.dto.AccountLoginDto;
+import com.projectsync.backend.security.dto.AccountRegisterDto;
+import com.projectsync.backend.security.dto.LoginResponse;
 import com.projectsync.backend.services.AccountService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class AccountControllerIntegrationTest {
 
-    private final MockMvc mockMvc;
-    private final ObjectMapper objectMapper;
-    private final AccountMapperImpl accountMapper;
-    private final AccountService accountService;
+public class AccountControllerIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
-    public AccountControllerIntegrationTest(
-            MockMvc mockMvc,
-            AccountMapperImpl accountMapper, AccountService accountService
-    ) {
-        this.mockMvc = mockMvc;
-        this.objectMapper = new ObjectMapper();
-        this.accountMapper = accountMapper;
-        this.accountService = accountService;
+    private AccountMapperImpl accountMapper;
+
+    @Autowired
+    private AccountService accountService;
+
+    private List<AccountDto> registeredAccounts;
+    private List<String> tokenList;
+
+    @BeforeEach
+    public void setup() throws Exception {
+        registeredAccounts = new java.util.ArrayList<>();
+        tokenList = new java.util.ArrayList<>();
+
+        List<AccountEntity> accounts = TestDataUtil.createAccountEntities();
+        for (AccountEntity account : accounts) {
+            String token = registerAndLogin(account.getEmail(), account.getPassword());
+
+            MvcResult accountResult = mockMvc.perform(MockMvcRequestBuilders.get("/account/email/" + account.getEmail())
+                    .header("Authorization", "Bearer " + token))
+                    .andExpect(status().isOk())
+                    .andReturn();
+
+            String accountResponseContent = accountResult.getResponse().getContentAsString();
+            AccountDto accountDto = objectMapper.readValue(accountResponseContent, AccountDto.class);
+            registeredAccounts.add(accountDto);
+            tokenList.add(token);
+        }
     }
 
     @Test
     void testGetAllAccounts() throws Exception {
-        // Test for GET /accounts
+        // First register a user
+        AccountEntity account = TestDataUtil.createAccountEntities().get(0);
+        String token = login(account.getEmail(), account.getPassword());
+
+        // Use the token to access the protected endpoint
+        MvcResult accountList = mockMvc.perform(MockMvcRequestBuilders.get("/account")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String accountListResponseContent = accountList.getResponse().getContentAsString();
+
+        // Deserialize JSON into List<AccountDto>
+        JavaType listType = objectMapper.getTypeFactory().constructCollectionType(List.class, AccountDto.class);
+        List<AccountDto> accountDtoList = objectMapper.readValue(accountListResponseContent, listType);
+
+        assertFalse(accountDtoList.isEmpty(), "Account list should not be empty");
+
+        accountDtoList.forEach(accountDto -> {
+            Optional<AccountDto> match = accountDtoList.stream()
+                    .filter(accountEntity -> accountEntity.getEmail().equals(accountDto.getEmail()))
+                    .findFirst();
+
+            assertTrue(match.isPresent(), "No matching AccountEntity found for email: " + accountDto.getEmail());
+
+            assertNotNull(accountDto.getId(), "AccountDto ID should not be null");
+
+            AccountDto matchedEntity = match.get();
+            assertEquals(matchedEntity.getId(), accountDto.getId(), "ID mismatch for account: " + accountDto.getEmail());
+        });
     }
 
     @Test
     void testGetAccountById() throws Exception {
+        AccountDto account = registeredAccounts.get(0);
+
+        MvcResult mvcResult = mockMvc.perform(
+                MockMvcRequestBuilders
+                        .get("/account/" + account.getId())
+                        .header("Authorization", "Bearer " + tokenList.get(0)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String responseContent = mvcResult.getResponse().getContentAsString();
+        AccountDto accountDto = objectMapper.readValue(responseContent, AccountDto.class);
+
+        System.out.println(responseContent);
+
+        assertNotNull(accountDto.getId(), "AccountDto ID should not be null");
+        assertEquals(account.getId(), accountDto.getId(), "ID mismatch for account: " + account.getEmail());
+    }
+
+    @Test
+    void testGetAccountByEmail() throws Exception {
+        // First register a user
 
     }
 
     @Test
-    void testGetAccountByEmail() {
-        // Test for GET /accounts/email/{email}
+    void testCreateAccount() throws Exception {
+
     }
 
     @Test
-    void testCreateAccount() {
-        // Test for POST /accounts
+    void testUpdateAccount() throws Exception {
+
     }
 
     @Test
-    void testUpdateAccount() {
-        // Test for PUT /accounts/{id}
-    }
-
-    @Test
-    void testDeleteAccount() {
-        // Test for DELETE /accounts/{id}
+    void testDeleteAccount() throws Exception {
     }
 }
