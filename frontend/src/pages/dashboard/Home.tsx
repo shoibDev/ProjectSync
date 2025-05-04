@@ -1,6 +1,20 @@
+import {useEffect} from "react";
+import{usePageHeader} from "../../contexts/PageHeaderContext.tsx";
+
+
 const Home = () => {
+  const {setHeader} = usePageHeader();
+  useEffect(() => {
+    setHeader({
+      title: "Home",
+      actions: <></>
+    });
+  }, [setHeader]);
+
   return (
-      <h1>Home Page</h1>
+      <>
+
+      </>
   )
 }
 export default Home;
