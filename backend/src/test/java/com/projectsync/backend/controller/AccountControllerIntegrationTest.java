@@ -1,26 +1,17 @@
 package com.projectsync.backend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.projectsync.backend.BaseIntegrationTest;
 import com.projectsync.backend.TestDataUtil;
-import com.projectsync.backend.controllers.AccountController;
 import com.projectsync.backend.domain.dto.AccountDto;
 import com.projectsync.backend.domain.entities.AccountEntity;
 import com.projectsync.backend.mappers.impl.AccountMapperImpl;
-import com.projectsync.backend.security.dto.AccountLoginDto;
-import com.projectsync.backend.security.dto.AccountRegisterDto;
-import com.projectsync.backend.security.dto.LoginResponse;
 import com.projectsync.backend.services.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 
 public class AccountControllerIntegrationTest extends BaseIntegrationTest {

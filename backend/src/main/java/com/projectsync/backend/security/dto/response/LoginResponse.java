@@ -1,4 +1,4 @@
-package com.projectsync.backend.security.dto;
+package com.projectsync.backend.security.dto.response;
 
 import lombok.Builder;
 import lombok.Data;

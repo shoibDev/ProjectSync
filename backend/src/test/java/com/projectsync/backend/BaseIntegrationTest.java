@@ -1,9 +1,9 @@
 package com.projectsync.backend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.projectsync.backend.security.dto.AccountLoginDto;
-import com.projectsync.backend.security.dto.AccountRegisterDto;
-import com.projectsync.backend.security.dto.LoginResponse;
+import com.projectsync.backend.security.dto.request.AccountLoginDto;
+import com.projectsync.backend.security.dto.request.AccountRegisterDto;
+import com.projectsync.backend.security.dto.response.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;

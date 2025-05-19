@@ -17,4 +17,6 @@ public interface AccountRepository extends JpaRepository<AccountEntity, UUID> {
 
     @Query("SELECT a FROM AccountEntity a WHERE a NOT IN (SELECT at FROM ProjectEntity p JOIN p.assignedTo at WHERE p.id = :projectId)")
     List<AccountEntity> findAccountsNotInProject(@Param("projectId") UUID projectId);
+
+    Optional<AccountEntity> findByVerificationToken(String verificationToken);
 }

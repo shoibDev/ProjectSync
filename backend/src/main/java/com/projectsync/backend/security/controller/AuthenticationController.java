@@ -1,9 +1,9 @@
 package com.projectsync.backend.security.controller;
 
 import com.projectsync.backend.domain.entities.AccountEntity;
-import com.projectsync.backend.security.dto.AccountLoginDto;
-import com.projectsync.backend.security.dto.AccountRegisterDto;
-import com.projectsync.backend.security.dto.LoginResponse;
+import com.projectsync.backend.security.dto.request.AccountLoginDto;
+import com.projectsync.backend.security.dto.request.AccountRegisterDto;
+import com.projectsync.backend.security.dto.response.LoginResponse;
 import com.projectsync.backend.security.service.AuthenticationService;
 import com.projectsync.backend.security.service.JwtService;
 import org.springframework.http.ResponseEntity;
