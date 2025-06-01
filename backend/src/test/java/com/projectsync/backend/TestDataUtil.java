@@ -15,22 +15,37 @@ public final class TestDataUtil {
         return List.of(
                 AccountEntity.builder()
                         .email("alice@example.com")
+                        .firstName("Alice")
+                        .lastName("Smith")
+                        .phoneNumber("1234567890")
                         .password("password")
                         .build(),
                 AccountEntity.builder()
                         .email("bob@example.com")
+                        .firstName("Bob")
+                        .lastName("Johnson")
+                        .phoneNumber("2345678901")
                         .password("password")
                         .build(),
                 AccountEntity.builder()
                         .email("charlie@example.com")
+                        .firstName("Charlie")
+                        .lastName("Brown")
+                        .phoneNumber("3456789012")
                         .password("password")
                         .build(),
                 AccountEntity.builder()
                         .email("diana@example.com")
+                        .firstName("Diana")
+                        .lastName("Davis")
+                        .phoneNumber("4567890123")
                         .password("password")
                         .build(),
                 AccountEntity.builder()
                         .email("edward@example.com")
+                        .firstName("Edward")
+                        .lastName("Wilson")
+                        .phoneNumber("5678901234")
                         .password("password")
                         .build()
         );

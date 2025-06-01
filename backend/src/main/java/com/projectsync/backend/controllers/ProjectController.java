@@ -27,8 +27,8 @@ public class ProjectController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProjectDto>> getAllProjects() {
-        List<ProjectDto> projects = projectService.findAll();
+    public ResponseEntity<List<ProjectDto>> getAllProjects(@AuthenticationPrincipal AccountEntity principal) {
+        List<ProjectDto> projects = projectService.findByOwnerOrAssignedTo(principal);
         return ResponseEntity.ok(projects);
     }
 

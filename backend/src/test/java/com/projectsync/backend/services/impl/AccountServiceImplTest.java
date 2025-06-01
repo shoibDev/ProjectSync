@@ -63,6 +63,9 @@ public class AccountServiceImplTest {
         for (int i = 0; i < accounts.size(); i++) {
             assertEquals(expectedAccountDtos.get(i).getId(), accounts.get(i).getId());
             assertEquals(expectedAccountDtos.get(i).getEmail(), accounts.get(i).getEmail());
+            assertEquals(expectedAccountDtos.get(i).getFirstName(), accounts.get(i).getFirstName());
+            assertEquals(expectedAccountDtos.get(i).getLastName(), accounts.get(i).getLastName());
+            assertEquals(expectedAccountDtos.get(i).getPhoneNumber(), accounts.get(i).getPhoneNumber());
         }
     }
 
@@ -76,6 +79,10 @@ public class AccountServiceImplTest {
         AccountDto accountDto = accountDtoOptional.orElseThrow(() -> new AssertionError("Account not found"));
 
         assertEquals(accountDto.getId(), accountEntity.getId());
+        assertEquals(accountDto.getEmail(), accountEntity.getEmail());
+        assertEquals(accountDto.getFirstName(), accountEntity.getFirstName());
+        assertEquals(accountDto.getLastName(), accountEntity.getLastName());
+        assertEquals(accountDto.getPhoneNumber(), accountEntity.getPhoneNumber());
     }
 
     @Test
@@ -100,6 +107,9 @@ public class AccountServiceImplTest {
 
         assertEquals(accountDto.getId(), accountEntity.getId());
         assertEquals(accountDto.getEmail(), email);
+        assertEquals(accountDto.getFirstName(), accountEntity.getFirstName());
+        assertEquals(accountDto.getLastName(), accountEntity.getLastName());
+        assertEquals(accountDto.getPhoneNumber(), accountEntity.getPhoneNumber());
     }
 
     @Test
@@ -128,6 +138,9 @@ public class AccountServiceImplTest {
         // Assert
         assertEquals(accountDto.getId(), savedAccountDto.getId());
         assertEquals(accountDto.getEmail(), savedAccountDto.getEmail());
+        assertEquals(accountDto.getFirstName(), savedAccountDto.getFirstName());
+        assertEquals(accountDto.getLastName(), savedAccountDto.getLastName());
+        assertEquals(accountDto.getPhoneNumber(), savedAccountDto.getPhoneNumber());
     }
 
     @Test

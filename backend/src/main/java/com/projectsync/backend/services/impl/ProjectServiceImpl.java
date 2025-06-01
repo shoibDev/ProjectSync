@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -61,6 +62,20 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findByAssignedTo(account)
                 .stream()
                 .map(projectMapper::mapTo)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProjectDto> findByOwnerOrAssignedTo(AccountEntity account) {
+        // Get projects owned by the user
+        List<ProjectDto> ownedProjects = findByOwner(account);
+
+        // Get projects assigned to the user
+        List<ProjectDto> assignedProjects = findByAssignedTo(account);
+
+        // Combine the lists and remove duplicates
+        return Stream.concat(ownedProjects.stream(), assignedProjects.stream())
+                .distinct()
                 .collect(Collectors.toList());
     }
 

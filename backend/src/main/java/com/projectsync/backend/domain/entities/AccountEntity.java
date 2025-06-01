@@ -29,6 +29,15 @@ public class AccountEntity implements UserDetails {
     @Column(unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = true)
+    private String phoneNumber;
+
     @Column(nullable = true) // Later modify to nullable = false...
     private String password;
 

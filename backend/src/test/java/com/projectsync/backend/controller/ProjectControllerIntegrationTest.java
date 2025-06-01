@@ -14,7 +14,17 @@ public class ProjectControllerIntegrationTest {
 
     @Test
     void testGetAllProjects() {
-        // Test for GET /projects
+        // This test should verify that the getAllProjects endpoint returns
+        // only projects owned by or assigned to the authenticated user
+
+        // Note: In a real integration test, you would:
+        // 1. Create a test user and authenticate
+        // 2. Create projects owned by the user
+        // 3. Create projects assigned to the user
+        // 4. Create projects not related to the user
+        // 5. Call the endpoint and verify only the relevant projects are returned
+
+        // Since this is a placeholder, we're just documenting the expected behavior
     }
 
     @Test

@@ -17,6 +17,8 @@ public interface ProjectService {
 
     List<ProjectDto> findByAssignedTo(AccountEntity account);
 
+    List<ProjectDto> findByOwnerOrAssignedTo(AccountEntity account);
+
     ProjectDto save(ProjectDto projectDto, AccountEntity owner);
 
     ProjectDto update(UUID id, ProjectDto projectDto);
