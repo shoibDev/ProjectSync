@@ -1,0 +1,98 @@
+@import '../../styles/variables.css';
+
+.login-container {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(to bottom right, #f9fafb, #f1f5f9);
+    padding: 1rem;
+}
+
+.form-card {
+    background: white;
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    display: grid;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.form-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.form-subtitle {
+    font-size: 0.95rem;
+    color: #6b7280;
+}
+
+.form-group {
+    text-align: left;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.form-group input {
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    background-color: #f9fafb;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    background-color: #fff;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.primary-btn {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #111827;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.primary-btn:hover {
+    background-color: #1f2937;
+}
+
+.link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.form-footer {
+    font-size: 0.9rem;
+    color: #6b7280;
+}

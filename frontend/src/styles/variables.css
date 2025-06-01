@@ -1,0 +1,14 @@
+:root {
+    --font-sans: 'Inter', 'Segoe UI', 'Helvetica Neue', sans-serif;
+
+    --color-bg: #f9fafb;
+    --color-text: #111827;
+
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+
+    --spacing-sm: 0.5rem;
+    --spacing-lg: 1.25rem;
+
+    --radius: 0.5rem;
+}
