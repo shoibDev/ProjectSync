@@ -1,7 +1,7 @@
 export const ROUTE_PATHS = {
   ROOT: "/",
-  LOGIN: "/login",
-  SIGNUP: "/signup",
+  LOGIN: "auth/login",
+  SIGNUP: "auth/signup",
   DASHBOARD: "/dashboard",
   NOT_FOUND: "*",
 };

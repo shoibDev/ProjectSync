@@ -1,0 +1,59 @@
+@import './variables.css';
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    background: linear-gradient(to bottom right, #f9fafb, #f1f5f9); /* soft gradient */
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+}
+
+/* UTILITY BUTTON */
+.button,
+.primary-btn {
+    background-color: #111827;
+    color: #fff;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.button:hover,
+.primary-btn:hover {
+    background-color: #1f2937;
+}
+
+/* LINK STYLES */
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Style all placeholders */
+input::placeholder,
+textarea::placeholder {
+    color: #9ca3af; /* soft gray */
+    font-size: 0.75rem;
+    opacity: 1; /* fixes Safari fading */
+}

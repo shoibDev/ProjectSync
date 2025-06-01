@@ -1,0 +1,77 @@
+/* Dashboard.css */
+
+.dashboard-layout {
+    display: grid;
+    grid-template-rows: 64px 1fr;
+    grid-template-columns: 240px 1fr;
+    grid-template-areas:
+    "header header"
+    "sidebar content";
+    height: 100vh;
+    background-color: #f9fafb; /* light background similar to login */
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+}
+
+/* HEADER */
+.dashboard-header {
+    grid-area: header;
+    background-color: #111827; /* black/navy */
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* SIDEBAR */
+.dashboard-sidebar {
+    grid-area: sidebar;
+    background-color: #ffffff; /* white sidebar for contrast */
+    padding: 1.5rem 1rem;
+    border-right: 1px solid #e5e7eb;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.03);
+}
+
+.dashboard-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard-nav li {
+    margin-bottom: 1rem;
+}
+
+.dashboard-nav a,
+.logout-button {
+    color: #111827;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* ACTIVE/FOCUS/HOVER STATES */
+.dashboard-nav a:hover,
+.logout-button:hover {
+    background-color: #f1f5f9;
+    color: var(--color-primary); /* uses the blue primary color */
+}
+
+/* MAIN CONTENT */
+.dashboard-content {
+    grid-area: content;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: #f9fafb;
+}
