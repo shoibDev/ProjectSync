@@ -3,5 +3,7 @@ export const ROUTE_PATHS = {
   LOGIN: "auth/login",
   SIGNUP: "auth/signup",
   DASHBOARD: "/dashboard",
+  TICKETS: "/tickets",
+  PROJECTS: "/projects/:projectId",
   NOT_FOUND: "*",
 };

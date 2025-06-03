@@ -1,13 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
-import './ProjectModal.css'; // Ensure you have the styles for the modal
+import { Fragment, ReactNode } from 'react';
+import './Modal.css'; // Updated CSS import
 
-type ProjectModalProps = {
+type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  title?: string;
+  children?: ReactNode;
 };
 
-export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
+export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
   return (
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="modal-container" onClose={onClose}>
@@ -34,9 +36,9 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
                 leaveTo="opacity-0 translate-y-4 scale-95"
             >
               <div className="modal-panel">
-                <Dialog.Title className="modal-title">Create Project</Dialog.Title>
+                {title && <Dialog.Title className="modal-title">{title}</Dialog.Title>}
                 <div className="modal-body">
-                  <p>Form goes here or any modal content you want.</p>
+                  {children || <p>Form goes here or any modal content you want.</p>}
                 </div>
                 <div className="modal-footer">
                   <button className="primary-btn" onClick={onClose}>Close</button>

@@ -1,0 +1,5 @@
+/* This file is now empty as all styles have been moved to Modal.css.
+   CreateProject.tsx now imports Modal.css directly.
+*/
+
+@import '../ui/Modal.css';

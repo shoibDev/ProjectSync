@@ -21,6 +21,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           <nav className="dashboard-nav">
             <ul>
               <li><Link to="/">Dashboard</Link></li>
+              <li><Link to="/tickets">Tickets</Link></li>
               <li>
                 <button onClick={logout} className="logout-button">
                   Logout

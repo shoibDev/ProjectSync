@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./ProjectTable.css";
+import "../ui/Table.css";
 
 import { Project } from "../../types/application";
-import ProjectModal from "../ui/ProjectModal.tsx"
+import Modal from "../ui/Modal.tsx"
 
 type Props = {
   projects: Project[];
@@ -41,7 +41,7 @@ export const ProjectTable: React.FC<Props> = ({ projects }) => {
           </tbody>
         </table>
 
-        <ProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create Project" />
       </div>
   );
 };
