@@ -6,6 +6,8 @@ import NotFound from "../pages/notfound/NotFound.tsx";
 import Home from "../pages/dashboard/Home.tsx";
 import ProtectedRoute from "./ProtectedRoute.tsx";
 import ProtectedDashboardLayout from "../layouts/ProtectedDashboardLayout.tsx";
+import TicketPage from "../pages/dashboard/TicketPage.tsx";
+import ProjectTicketPage from "../pages/dashboard/ProjectTicketPage.tsx";
 
 
 const router = createBrowserRouter([
@@ -20,7 +22,9 @@ const router = createBrowserRouter([
                 element: <ProtectedDashboardLayout />,
                 children: [
                     { index: true, element: <Home /> },
-                    // other protected routes
+                    { path: ROUTE_PATHS.TICKETS, element: <TicketPage /> },
+                    { path: ROUTE_PATHS.PROJECTS, element: <ProjectTicketPage /> },
+
                 ]
             }
         ]

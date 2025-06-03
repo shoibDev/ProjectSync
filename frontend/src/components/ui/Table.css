@@ -1,0 +1,121 @@
+.members {
+    max-width: 1000px;
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-lg);
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    overflow-x: auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.table-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.create-btn {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.create-btn:hover {
+    background-color: var(--color-primary-hover);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+thead {
+    background-color: #f3f4f6;
+}
+
+th, td {
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+td {
+    color: #374151; /* Tailwind's gray-700 */
+}
+
+tbody tr {
+    transition: background-color 0.25s ease;
+}
+
+tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.table-scroll-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+.table-scroll-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-scroll-container th,
+.table-scroll-container td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.table-scroll-container tr:last-child td {
+    border-bottom: none;
+}
+
+.table-scroll-container thead th {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 1;
+    text-align: left;
+}
+
+@media (max-width: 600px) {
+    .table-header h1 {
+        font-size: 1.2rem;
+    }
+
+    .create-btn {
+        padding: 0.5rem 1rem;
+    }
+
+    th, td {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}

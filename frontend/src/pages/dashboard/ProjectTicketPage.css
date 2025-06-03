@@ -1,0 +1,118 @@
+.project-tickets-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.project-header {
+  margin-bottom: 20px;
+}
+
+.project-header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.project-header p {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Grid layout */
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* 1/4 and 3/4 split for the top row */
+  grid-template-rows: auto auto; /* Two rows: top for tables, bottom for info */
+  grid-template-areas:
+    "members tickets"
+    "info info";
+  gap: 20px;
+}
+
+/* Grid areas */
+.member-table-container {
+  grid-area: members;
+}
+
+.tickets-table-container {
+  grid-area: tickets;
+}
+
+.project-info-container {
+  grid-area: info;
+  margin-top: 20px;
+}
+
+/* Adjust TicketInfo component when inside project-info-container */
+.project-info-container .ticket-info {
+  margin-top: 0;
+  height: 100%;
+}
+
+/* Project info styling */
+.project-info {
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+.project-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.tickets-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.ticket-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 15px;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  border-left: 4px solid #ccc;
+}
+
+.ticket-item.todo {
+  border-left-color: #3b82f6; /* blue */
+}
+
+.ticket-item.in_progress {
+  border-left-color: #f59e0b; /* amber */
+}
+
+.ticket-item.done {
+  border-left-color: #10b981; /* green */
+}
+
+.ticket-item.blocked {
+  border-left-color: #ef4444; /* red */
+}
+
+.ticket-title {
+  font-weight: 500;
+}
+
+.ticket-status {
+  font-size: 0.85rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: #e5e7eb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "members"
+      "tickets"
+      "info";
+  }
+}

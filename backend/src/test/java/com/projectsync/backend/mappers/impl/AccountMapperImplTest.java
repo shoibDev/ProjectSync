@@ -47,6 +47,9 @@ public class AccountMapperImplTest {
         AccountEntity entity = AccountEntity.builder()
                 .id(id)
                 .email("test@example.com")
+                .firstName("John")
+                .lastName("Doe")
+                .phoneNumber("1234567890")
                 .build();
 
         // Act
@@ -55,6 +58,9 @@ public class AccountMapperImplTest {
         // Assert
         assertEquals(id, dto.getId());
         assertEquals("test@example.com", dto.getEmail());
+        assertEquals("John", dto.getFirstName());
+        assertEquals("Doe", dto.getLastName());
+        assertEquals("1234567890", dto.getPhoneNumber());
     }
 
     @Test
@@ -148,6 +154,9 @@ public class AccountMapperImplTest {
         AccountDto dto = AccountDto.builder()
                 .id(id)
                 .email("test@example.com")
+                .firstName("John")
+                .lastName("Doe")
+                .phoneNumber("1234567890")
                 .build();
 
         // Act
@@ -156,6 +165,9 @@ public class AccountMapperImplTest {
         // Assert
         assertEquals(id, entity.getId());
         assertEquals("test@example.com", entity.getEmail());
+        assertEquals("John", entity.getFirstName());
+        assertEquals("Doe", entity.getLastName());
+        assertEquals("1234567890", entity.getPhoneNumber());
     }
 
     @Test

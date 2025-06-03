@@ -18,6 +18,12 @@ public class AccountDto {
 
     private String email;
 
+    private String firstName;
+
+    private String lastName;
+
+    private String phoneNumber;
+
     private List<UUID> projectIds;
 
     private List<UUID> assignedTicketIds;

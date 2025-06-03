@@ -22,6 +22,8 @@ public class ProjectDto {
 
     private String name;
 
+    private String description;
+
     private Set<UUID> assignedToIds;
 
     private List<UUID> ticketIds;

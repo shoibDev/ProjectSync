@@ -1,0 +1,126 @@
+.ticket-info {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.ticket-info h2 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: #2d3748;
+}
+
+.ticket-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.ticket-details-grid div {
+    font-size: 0.95rem;
+    color: #2d3748;
+    line-height: 1.4;
+}
+
+.ticket-details-grid strong {
+    display: inline-block;
+    width: auto;
+    color: #4a5568;
+    margin-right: 0.25rem;
+}
+
+.value {
+    color: #1a202c;
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.status-badge.todo {
+    background-color: #e6f0ff;
+    color: #3b82f6;
+}
+
+.status-badge.in_progress {
+    background-color: #fff7e6;
+    color: #f59e0b;
+}
+
+.status-badge.done {
+    background-color: #e6fff0;
+    color: #10b981;
+}
+
+.status-badge.blocked {
+    background-color: #ffe6e6;
+    color: #ef4444;
+}
+
+/* Priority badges */
+.priority-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.priority-badge.low {
+    background-color: #e6fff0;
+    color: #10b981;
+}
+
+.priority-badge.medium {
+    background-color: #fff7e6;
+    color: #f59e0b;
+}
+
+.priority-badge.high {
+    background-color: #ffe6e6;
+    color: #ef4444;
+}
+
+/* Type badges */
+.type-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.type-badge.bug {
+    background-color: #ffe6e6;
+    color: #ef4444;
+}
+
+.type-badge.feature {
+    background-color: #e6f0ff;
+    color: #3b82f6;
+}
+
+.type-badge.question {
+    background-color: #f0e6ff;
+    color: #8b5cf6;
+}
+
+.type-badge.task {
+    background-color: #e6fff0;
+    color: #10b981;
+}

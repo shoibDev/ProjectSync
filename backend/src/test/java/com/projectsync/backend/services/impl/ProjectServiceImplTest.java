@@ -317,6 +317,44 @@ public class ProjectServiceImplTest {
     }
 
     @Test
+    void findByOwnerOrAssignedTo_ShouldReturnCombinedProjectsWithoutDuplicates() {
+        // Arrange
+        AccountEntity account = TestDataUtil.createAccountEntities().get(0);
+
+        // Create two lists of projects
+        List<ProjectEntity> ownedProjects = TestDataUtil.createProjectEntities().subList(0, 2); // First 2 projects
+        List<ProjectEntity> assignedProjects = TestDataUtil.createProjectEntities().subList(1, 3); // Projects 2 and 3 (overlap with owned)
+
+        // Mock repository behavior
+        when(projectRepository.findByOwner(account)).thenReturn(ownedProjects);
+        when(projectRepository.findByAssignedTo(account)).thenReturn(assignedProjects);
+
+        // Manually create expected DTOs (should be 3 unique projects)
+        List<ProjectDto> expectedOwnedDtos = ownedProjects.stream()
+                .map(projectMapper::mapTo)
+                .toList();
+        List<ProjectDto> expectedAssignedDtos = assignedProjects.stream()
+                .map(projectMapper::mapTo)
+                .toList();
+
+        // Act
+        List<ProjectDto> projects = projectService.findByOwnerOrAssignedTo(account);
+
+        // Assert
+        // Should have 3 projects (not 4, due to removing duplicates)
+        assertEquals(3, projects.size());
+
+        // Verify all projects from both lists are included
+        for (ProjectDto ownedDto : expectedOwnedDtos) {
+            assertTrue(projects.stream().anyMatch(p -> p.getId().equals(ownedDto.getId())));
+        }
+
+        for (ProjectDto assignedDto : expectedAssignedDtos) {
+            assertTrue(projects.stream().anyMatch(p -> p.getId().equals(assignedDto.getId())));
+        }
+    }
+
+    @Test
     void findAccountsNotInProject_ShouldReturnAccountsNotInProject() {
         // Arrange
         UUID projectId = UUID.randomUUID();

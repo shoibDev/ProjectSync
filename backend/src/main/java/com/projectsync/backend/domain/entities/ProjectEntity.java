@@ -31,6 +31,9 @@ public class ProjectEntity {
     @Column(length = 100, nullable = false)
     private String name;
 
+    @Column(length = 200, nullable = false)
+    private String description;
+
     @ManyToMany
     @JoinTable(
             name = "project_assigned_to",
