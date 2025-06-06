@@ -12,10 +12,10 @@ export type Ticket = {
 
 export type Project = {
   id: string;
-  owner_id: string;
+  ownerId: string;
   name: string;
   description: string;
-  assigned_to_ids: string[];
+  assignedToIds: string[];
   tickets: Ticket[];
 }
 

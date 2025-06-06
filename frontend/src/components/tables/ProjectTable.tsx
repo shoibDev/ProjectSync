@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../ui/Table.css";
 
 import { Project } from "../../types/application";
-import Modal from "../ui/Modal.tsx"
+import CreateProject from "../forms/CreateProject.tsx";
 
 type Props = {
   projects: Project[];
@@ -32,16 +32,22 @@ export const ProjectTable: React.FC<Props> = ({ projects }) => {
           <tbody>
           {projects.map((project) => (
               <tr key={project.id}>
-                <td>{project.owner_id}</td>
+                <td>{project.ownerId}</td>
                 <td>{project.name}</td>
                 <td>{project.description}</td>
-                <td>{project.assigned_to_ids.join(", ")}</td>
+                <td>{project.assignedToIds.join(", ")}</td>
               </tr>
           ))}
           </tbody>
         </table>
 
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create Project" />
+        {/* Show the modal if open */}
+        {isModalOpen && (
+            <CreateProject
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
+        )}
       </div>
   );
 };

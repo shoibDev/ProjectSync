@@ -7,6 +7,7 @@ import { showError } from "../../utils/toast";
 import { validateLogin } from "../../validations/validateLogin";
 import {useAuth} from "../../hooks/useAuth.ts";
 
+
 const Login: React.FC = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -28,7 +29,8 @@ const Login: React.FC = () => {
     }
 
     try {
-      await login(data.email, data.password);
+      console.log("Login request:", data);
+      await login(data);
       navigate("/");
     } catch (err: any) {
       showError(err.response?.data?.message || "Login failed");

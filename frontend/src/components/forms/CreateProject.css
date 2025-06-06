@@ -3,3 +3,90 @@
 */
 
 @import '../ui/Modal.css';
+@import '../../styles/variables.css';
+
+.create-project-form {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 16px;
+    display: grid;
+    gap: 1.5rem;
+    margin: 0 auto;
+}
+
+.create-project-form .form-group {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.create-project-form label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.create-project-form input,
+.create-project-form textarea {
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+    background-color: #f9fafb;
+    transition: border-color 0.2s;
+}
+
+.create-project-form input:focus,
+.create-project-form textarea:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    background-color: #fff;
+}
+
+.create-project-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* react-select overrides */
+.react-select__control {
+    border-radius: 10px;
+    border-color: #d1d5db;
+    background-color: #f9fafb;
+    transition: border-color 0.2s;
+    font-size: 1rem;
+}
+
+.react-select__control--is-focused {
+    border-color: var(--color-primary);
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.react-select__menu {
+    z-index: 20;
+}
+
+.react-select__option {
+    font-size: 0.95rem;
+}
+
+.react-select__multi-value {
+    background-color: #e5e7eb;
+    border-radius: 8px;
+}
+
+.create-project-form .btn.btn-primary {
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #111827;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.create-project-form .btn.btn-primary:hover {
+    background-color: #1f2937;
+}

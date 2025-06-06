@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
-import { LoginFormData } from "../types/auth";
+import {LoginFormData, LoginResponse} from "../types/auth";
 import { AuthContextType } from "../types/auth";
+import {login as LoginRequest} from "../api/auth.ts"
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -16,17 +17,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (request: LoginFormData) => {
     try {
-      const res = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ request }),
-      });
+      const data: LoginResponse = await LoginRequest(request);
 
-      if (!res.ok) throw new Error("Login failed");
-
-      const data = await res.json();
       const jwtToken = data.token;
       setToken(jwtToken);
       localStorage.setItem("token", jwtToken);

@@ -1,6 +1,7 @@
-import {LoginFormData} from "../types/auth";
+import {LoginFormData, LoginResponse} from "../types/auth";
 
-export const login = async (request : LoginFormData): Promise<void> => {
+export const login = async (request : LoginFormData): Promise<LoginResponse> => {
+  console.log(request)
   try {
     const response = await fetch('http://localhost:8080/auth/login', {
       method: 'POST',
@@ -9,8 +10,9 @@ export const login = async (request : LoginFormData): Promise<void> => {
       },
       body: JSON.stringify(request),
     });
-    console.log("Login response:", response.json()); // Log the response data
-    return response.json();
+    const data: LoginResponse = await response.json();
+    console.log("Login response:", data); // Log the response data
+    return data;
   } catch (error) {
     throw error;
   }
