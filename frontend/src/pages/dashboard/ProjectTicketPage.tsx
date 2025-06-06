@@ -44,7 +44,7 @@ export default function ProjectTicketPage() {
       <div className="project-grid">
         <div className="member-table-container">
           <ProjectMemberTable
-            members={project.assigned_to_ids || []}
+            members={project.assignedToIds || []}
             projectId={project.id}
           />
         </div>

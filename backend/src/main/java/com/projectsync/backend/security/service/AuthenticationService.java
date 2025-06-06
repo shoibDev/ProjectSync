@@ -30,13 +30,17 @@ public class AuthenticationService {
         AccountEntity account = AccountEntity.builder()
                 .email(input.getEmail())
                 .password(passwordEncoder.encode(input.getPassword()))
-                .enabled(false)
-                .verificationToken(verificationToken)
-                .verificationTokenExpiry(expirationTime)
+                .firstName(input.getFirstName())
+                .lastName(input.getLastName())
+                .enabled(true)
+//                 .verificationToken(verificationToken)
+//                 .verificationTokenExpiry(expirationTime)
+                .verificationToken(null)
+                .verificationTokenExpiry(null)
                 .build();
 
         AccountEntity savedAccount = accountRepository.save(account);
-        emailService.sendVerificationEmail(savedAccount.getEmail(), verificationToken);
+//         emailService.sendVerificationEmail(savedAccount.getEmail(), verificationToken);
         return savedAccount;
     }
 
