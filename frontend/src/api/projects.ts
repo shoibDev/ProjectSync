@@ -16,6 +16,12 @@ export const createProject = async (data: CreateProjectFormData): Promise<Projec
   return response.data;
 }
 
+export const getProjectById = async (projectId: string): Promise<Project> => {
+  const response: AxiosResponse<Project> = await api.get(API_ENDPOINTS.PROJECTS.GET_BY_ID(projectId));
+  console.log("Get project by ID response:", response.data); // Log the response data
+  return response.data;
+}
+
 export const assignUserToProject = async (projectId: string, userId: string): Promise<void> => {
   const response: AxiosResponse<void> = await api.post(API_ENDPOINTS.PROJECTS.ADD_ACCOUNT(projectId, userId));
   console.log("Assign user to project response:", response.data); // Log the response data

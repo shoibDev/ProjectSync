@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHeader } from "../../contexts/HeaderContext";
 import {User, Project, Ticket} from "../../types/application";
-import { fullProjectData} from "../../utils/dummyData.ts";
+import { getProjectById } from "../../api/projects.ts";
 import ProjectMemberTable from "../../components/tables/ProjectMemberTable.tsx";
 import ProjectTicketsTable from "../../components/tables/ProjectTicketsTable.tsx";
 import TicketInfo from "../../components/tables/TicketInfo.tsx";
@@ -16,14 +16,23 @@ export default function ProjectTicketPage() {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
 
+
   useEffect(() => {
     setTitle("Project Tickets");
-    // Simulating fetching project data
-    // fullProjectData is an object, not an array, so we directly check if its id matches
-    if (fullProjectData && fullProjectData.id === projectId) {
-      setProject(fullProjectData);
-      setTickets(fullProjectData.tickets || []);
-    }
+    const fetchProject = async () => {
+      try {
+        if (projectId) {
+          const projectData = await getProjectById(projectId);
+          setProject(projectData);
+          setTickets(projectData.tickets || []);
+        } else {
+          console.log("Project ID is not provided");
+        }
+      } catch (error) {
+        console.error("Error fetching project:", error);
+      }
+    };
+    fetchProject();
   }, [projectId, setTitle]);
 
   const handleSelectTicket = (ticket: Ticket) => {
@@ -52,7 +61,9 @@ export default function ProjectTicketPage() {
         <div className="tickets-table-container">
           <ProjectTicketsTable
             tickets={tickets}
+            memberIds={project.assignedToIds || []}
             onSelectTicket={handleSelectTicket}
+            projectId={project.id}
           />
         </div>
 

@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "../ui/Table.css";
-import { Modal } from "../ui/Modal.tsx";
 import { Ticket } from "../../types/application";
+import CreateTicketForm from "../forms/CreateTicketForm";
 
 type ProjectTicketsTableProps = {
   tickets: Ticket[];
+  memberIds: string[];
   onSelectTicket?: (ticket: Ticket) => void;
+  projectId?: string;
 };
 
 export default function ProjectTicketsTable({ 
-  tickets: initialTickets, 
-  onSelectTicket 
+  tickets: initialTickets,
+  memberIds,
+  onSelectTicket,
+  projectId
 }: ProjectTicketsTableProps) {
   const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setTickets(initialTickets);
@@ -28,7 +33,7 @@ export default function ProjectTicketsTable({
       <div className="tickets-table">
         <div className="table-header">
           <h1>Project Tickets</h1>
-          <button className="create-btn" onClick={() => console.log("Create Ticket")}>
+          <button className="create-btn" onClick={() => setIsModalOpen(true)}>
             Create Ticket
           </button>
         </div>
@@ -51,6 +56,12 @@ export default function ProjectTicketsTable({
           ))}
           </tbody>
         </table>
+
+        <CreateTicketForm 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          projectId={projectId}
+        />
       </div>
   );
 }
