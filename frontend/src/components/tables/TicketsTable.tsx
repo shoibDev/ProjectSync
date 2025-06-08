@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "../ui/Table.css";
 import "./TicketsTable.css"
 import { Ticket } from "../../types/application";

@@ -3,6 +3,7 @@ import "../ui/Table.css";
 
 import { Project } from "../../types/application";
 import CreateProject from "../forms/CreateProject.tsx";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   projects: Project[];
@@ -10,6 +11,7 @@ type Props = {
 
 export const ProjectTable: React.FC<Props> = ({ projects }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
       <div className="members">
@@ -33,7 +35,12 @@ export const ProjectTable: React.FC<Props> = ({ projects }) => {
           {projects.map((project) => (
               <tr key={project.id}>
                 <td>{project.ownerId}</td>
-                <td>{project.name}</td>
+                <td
+                    onClick={() => navigate(`/projects/${project.id}`)}
+                    style={{ cursor: "pointer", color: "#3182ce", textDecoration: "underline" }}
+                >
+                  {project.name}
+                </td>
                 <td>{project.description}</td>
                 <td>{project.assignedToIds.join(", ")}</td>
               </tr>
